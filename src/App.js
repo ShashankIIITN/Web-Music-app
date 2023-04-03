@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect, useRef } from 'react';
+import LoadingScreen from './components/LoadingScreen';
+import "./css/app.css";
+import MainBody from './components/MainBody';
 
 function App() {
+const [wait, setWait] = useState(true);
+
+
+  setTimeout(() => {
+
+    setWait(false);
+
+  }, 1500);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {wait && <LoadingScreen />}
+      {!wait && <MainBody />}
+    </>
   );
 }
 
