@@ -1,8 +1,7 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 
 function MyDropzone(props) {
-
     const onDrop = useCallback(acceptedFiles => {
         var acceptedFile = acceptedFiles[0]
         var drpzone = document.getElementById('dd');
@@ -10,7 +9,6 @@ function MyDropzone(props) {
 
         const reader = new FileReader();
         reader.readAsDataURL(acceptedFile);
-        console.log(reader);
 
         reader.addEventListener('loadend', () => {
 
@@ -25,7 +23,7 @@ function MyDropzone(props) {
             }
             drpzone.append(img);
 
-            props.SetUrl(acceptedFile)
+            props.SetUrl(reader)
         });
 
     }, [])
@@ -43,10 +41,10 @@ function MyDropzone(props) {
         doc.classList.remove('active');
     }
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ accept: { 'image/*': [] }, onDrop, onDragEnter, onDragLeave, onDragOver })
+    const { getRootProps, getInputProps, isDragActive, inputRef } = useDropzone({ accept: { 'image/*': [] }, onDrop, onDragEnter, onDragLeave, onDragOver })
     return (
         <div {...getRootProps()}>
-            <input {...getInputProps()} />
+            <input name='imagefile' id='drpzne' {...getInputProps()} />
             {
                 <div id="dd">
                 <div className='text-div'>
